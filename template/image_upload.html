@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload </title>
+    <link rel="stylesheet" href="../index.css" >
+</head>
+<body>
+    
+    <p class="header2"> Image / File - Upload  </p>
+    <pre>
+        <code>
+            //file-upload.middleware.js  OR //index.js
+
+            import multer from 'multer';
+            const storageConfig = multer.diskStorage({
+                destination: (req, file, cb) => {
+                    cb(null, 'public/uploads');
+                },
+                filename: (req, file, cb) => {
+                    const fileName = Date.now() + file.originalname;
+                    cb(null, fileName);
+                }
+            });
+            export const uploadFile = multer({ storage: storageConfig });
+            
+
+            //upload image
+            server.post('/upload', upload.single('imageUrl'), (req, res) => {
+                res.send('Image uploaded');
+            });
+
+
+            //upload multiple images
+            server.post('/upload', upload.array('imageUrl', 10), (req, res) => {
+                res.send('Images uploaded');
+            });
+        </code>
+    </pre>
+
+</body>
+</html>

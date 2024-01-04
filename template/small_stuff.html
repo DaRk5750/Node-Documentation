@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Other Stuff </title>
+    <link rel="stylesheet" href="../index.css" >
+</head>
+<body>
+    
+    <p class="header2">1. Static (public) - (index.html)</p>
+    <pre>
+        <code>
+            //make page visible to everyone public views  (index.html)
+            server.use(express.static("public"));  (public is the folder name)
+        </code>
+    </pre>
+
+    <p class="header2">2. Template  - (index.html)</p>
+    <pre>
+        <code>
+            <u>//Set Templates</u>
+            server.set("view engine", "ejs");                                               // define template engine 
+            // server.set("views", path.join(path.resolve(), 'src','users' ,'views'));             // paths
+            server.use(ejsLayouts);                                                         // base template
+
+            // You can also set multiple views paths for different routes if needed - use array
+            server.set('views', [path.join(path.resolve(), 'src', 'users', 'views'), path.join(path.resolve(), 'src', 'products', 'views')]);
+            
+        </code>
+    </pre>
+
+    <p class="header2">3. Session </p>
+    <pre>
+        <code>
+            //index.js
+            import session  from 'express-session';
+            server.use(session({ secret:'SecretKey', resave: false, saveUninitialized: true, cookie:{secure:false} }))
+            
+            //create session
+            req.session.userEmail = user;
+
+            // retrive session
+            const email = req.session.userEmail
+
+            //destroy session   //logout
+            req.session.destroy((err)=>{
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    res.redirect('/user/login');
+                }
+            })
+    
+        </code>
+    </pre>
+      
+    <p class="header2">4. Cookie </p>
+    <pre>
+        <code>
+            //index.js
+            import cookieParser from 'cookie-parser';  //parse cookie
+            server.use(cookieParser());
+            
+            //create cookie
+            res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});  //maxAge in seconds
+
+            // retrive cookie
+            const token = req.cookies.jwt;
+
+            //destroy cookie   //logout
+            res.cookie('jwt', '', {maxAge: 1});  //maxAge in seconds
+        </code>
+    </pre>
+
+    <p class="header2">5. Encoded , Parse the data - (index.html) </p>
+    <pre>
+        <code>
+            server.use(express.urlencoded({extended: true}));   // parse form data (POST)
+            import cookieParser from 'cookie-parser';  //parse cookie
+            import bodyParser from 'body-parser';       
+            // server.use(express.json())
+            // server.use(cookieParser());
+            // server.use(bodyParser.json());
+        </code>
+    </pre>
+    
+ 
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error Handler </title>
+    <link rel="stylesheet" href="../index.css" >
+</head>
+<body>
+    
+    <p class="header2"> Error Handler  </p>
+    <p class="header3"> 1. Create a file named applicationError.js in the middleware folder. </p>
+    <p class="header3"> 2. Copy the following code in the file. </p><br>
+
+    <pre >
+        (i) applicationError.js<hr>
+        <code>
+        export class ApplicationError extends Error{
+            constructor(message, code){
+                super(message);
+                this.code = code;
+            }
+        }
+        </code> 
+    </pre>
+
+    <pre>
+        <code>
+        (ii) import { ApplicationError } from './src/error-handler/applicationError.js';
+
+        (iii) // Error handler middleware
+            server.use((<u>err</u>, req, res, next)=>{
+            console.log(err);
+            if (err instanceof ApplicationError){
+                res.status(err.code).send(err.message);
+            }
+
+        (iv) // server errors.
+        res.status(500).send('Something went wrong, please try later' );
+        });
+    
+            <hr>
+        (v) // Middleware to handle 404 requests.
+        server.use((req, res)=>{
+        res.status(404).send("API not found. Please check our documentation for more information at localhost:3200/api-docs")
+        });
+
+        </code>
+    </pre>
+
+</body>
+</html>

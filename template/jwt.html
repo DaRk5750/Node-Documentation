@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jsonwebtoken (JWT) </title>
+    <link rel="stylesheet" href="../index.css" >
+</head>
+<body>
+    <p class="header2">1. Creating JWT </p>
+                    <pre><code>
+                        import jwt from 'jsonwebtoken';
+                        // 1. Create token.
+                            const token = jwt.sign(
+                                {
+                                userID: result.id,
+                                email: result.email,
+                                },
+                                'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
+                                {
+                                expiresIn: '1h',
+                                }
+                            );
+
+                            // 2. Send token.
+                            return res.status(200).send(token);
+                    </code></pre>
+                    <p class="header2">2. Receiving token</p>
+                    <pre><code>
+                        import jwt from 'jsonwebtoken';
+                        const jwtAuth = (req, res, next)=>{
+                            // 1. Read the token.
+                            const token = req.headers['authorization'];
+
+                            // 2. if no token, return the error.
+                            if(!token){
+                                return res.status(401).send('Unauthorized');
+                            }
+                            // 3. check if token is valid.
+                            try{
+                                const payload = jwt.verify(
+                                    token,
+                                    "AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz"
+                                );
+                                req.userID = payload.userID;
+                                console.log(payload);
+                            } catch(err){
+                                // 4. return error.
+                                console.log(err);
+                                return res.status(401).send('Unauthorized');
+                            }
+
+                            // 5. call next middleware.
+                            next();
+                        };
+
+                        export default jwtAuth;
+                    </code></pre>
+</body>
+</html>
