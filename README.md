@@ -1,7 +1,7 @@
 # Project Title
 
 Some important topic of Node js. 
-We Discuss about code and syntrax that we forget early.
+We Discuss about code and syntrax that we forget easily.
 
 
 
