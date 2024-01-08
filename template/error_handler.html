@@ -11,36 +11,52 @@
     <p class="header3"> 2. Copy the following code in the file. </p><br>
 
     <pre >
-        (i) applicationError.js<hr>
+        <p class="desc">
+        applicationError.js</p>
+        <hr>
         <code>
-        export class ApplicationError extends Error{
+        (i) export class ApplicationError extends Error{
             constructor(message, code){
-                super(message);
-                this.code = code;
-            }
-        }
+            super(message);
+            this.code = code;
+            }}
+
+        (ii) export const appLevelErrorHandlerMiddleware = (err, req, res, next) => {
+            err.statusCode = err.statusCode || 500;
+            err.message = err.message || "server error! Try later!!";
+            res.status(err.statusCode).json({ success: false, error: err.message });
+            next();
+          };
         </code> 
     </pre>
 
     <pre>
         <code>
-        (ii) import { ApplicationError } from './src/error-handler/applicationError.js';
-
-        (iii) // Error handler middleware
-            server.use((<u>err</u>, req, res, next)=>{
-            console.log(err);
-            if (err instanceof ApplicationError){
+        import { ApplicationError, appLevelErrorHandlerMiddleware } from './src/error-handler/applicationError.js';
+        <p class="desc">
+        // Error handler middleware
+        </p>
+        (iii) server.use((<u>err</u>, req, res, next)=>{
+              console.log(err);
+              if (err instanceof ApplicationError){
                 res.status(err.code).send(err.message);
-            }
+              }
 
+            
         (iv) // server errors.
-        res.status(500).send('Something went wrong, please try later' );
-        });
-    
-            <hr>
-        (v) // Middleware to handle 404 requests.
+              res.status(500).send('Something went wrong, please try later' );
+              });
+        
+        <hr>
+        <p class="desc">
+        //This is the last middleware in the chain. (i.e. after all the routes)
+        //This middleware will handle all the errors that are not handled by the previous middlewares.
+        </p>
+        (v) server.use(appLevelErrorHandlerMiddleware);
+
+        (vi) // Middleware to handle 404 requests.
         server.use((req, res)=>{
-        res.status(404).send("API not found. Please check our documentation for more information at localhost:3200/api-docs")
+            res.status(404).send("API not found. Please check our documentation for more information at localhost:3200/api-docs")
         });
 
         </code>
