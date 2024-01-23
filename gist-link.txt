@@ -1,0 +1,35 @@
+hashing ->
+https://gist.github.com/vivekyadav5750/28a5c9ebe7a73f50c8fd1bfebc734aa4
+
+validation ->
+https://gist.github.com/vivekyadav5750/a6de732058cef88d1b50c0f163f94317
+
+jwt->
+https://gist.github.com/vivekyadav5750/3c4cbf0f2cea0dae1e8ca1c29a8c2437
+
+image/file upload ->
+https://gist.github.com/vivekyadav5750/a5cae69f251eac9a3753b8db312a138e
+
+logger ->
+https://gist.github.com/vivekyadav5750/840d99efbc092f417696125202b9cb1c
+
+CORS ->
+https://gist.github.com/vivekyadav5750/f21537dda80eecf0d9171684fecf8544
+
+Error-Handling->
+https://gist.github.com/vivekyadav5750/9221cb9daf0afcf9472b7698a6f0989a
+
+Swagger->
+https://gist.github.com/vivekyadav5750/d386e947de45299122b959c13530698e
+
+Small stuff->
+https://gist.github.com/vivekyadav5750/ec5be0105e1138ffe2044048da2b225a
+
+error->
+https://gist.github.com/vivekyadav5750/3568aa0e70e44023477b64ae0a966899
+
+
+
+
+
+
